@@ -46,3 +46,5 @@ fs.writeFile(file, createContent(originalTweetsNoMentions), err => {
   if (err) throw err;
   console.log(`tweet text written to ${file}`);
 });
+
+module.exports.createContent = createContent;
