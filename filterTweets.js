@@ -1,7 +1,8 @@
 module.exports.createContent = tweetsArray => {
   const texts = tweetsArray.map(tweet => tweet.full_text);
-  texts.push("\n");
-  return texts.join("\n");
+  texts.push("X");
+  textsString = texts.join(",\n");
+  return textsString.substr(0, textsString.length - 1);
 };
 
 module.exports.originalTweetsNoMentions = tweets => {
