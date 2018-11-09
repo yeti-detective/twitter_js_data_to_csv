@@ -1,9 +1,13 @@
 window = { YTD: { tweet: {} } };
 const fs = require("fs");
 
-const file = "tweets.csv";
-const tweetScript = require("./twitter_stuff/tweet");
+const originalTweets = require("./filterTweets").originalTweetsNoMentions;
+const createContent = require("./filterTweets").createContent;
 
+const file = "tweets.csv";
+console.log("are you even getting to line six, dawg?");
+const tweetScript = process.env.TESTTWEET || require("./twitter_stuff/tweet");
+debugger;
 /*
 Tweet Object Example
 {
@@ -12,7 +16,7 @@ Tweet Object Example
   entities: {hashtags: Array(0), symbols: Array(0), user_mentions: Array(1), urls: Array(0)}
   favorite_count: "0"
   favorited: false
-  full_text: "@InfiniteFruit loops"
+  full_text: "I am a tweet's text. I have an apostrophe \nas well as a newline character, oh and a comma. What a nightmare to parse :)"
   id: "1052743110667702272"
   id_str: "1052743110667702272"
   in_reply_to_screen_name: "InfiniteFruit"
@@ -28,21 +32,7 @@ Tweet Object Example
 }
 */
 
-const originalTweetsNoMentions = window.YTD.tweet.part0.filter(tweet => {
-  if (tweet.full_text.substr(0, 2) == "RT" || tweet.full_text[0] == "@") {
-    return false;
-  } else {
-    return true;
-  }
-});
-
-const createContent = tweetsArray => {
-  const texts = tweetsArray.map(tweet => tweet.full_text);
-  texts.push("\n");
-  return texts.join("\n");
-};
-
-fs.writeFile(file, createContent(originalTweetsNoMentions), err => {
+fs.writeFile(file, createContent(originalTweets), err => {
   if (err) throw err;
   console.log(`tweet text written to ${file}`);
 });
