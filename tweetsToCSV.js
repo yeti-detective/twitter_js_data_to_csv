@@ -6,7 +6,7 @@ const createContent = require("./filterTweets").createContent;
 
 const file = "tweets.csv";
 
-const tweetScript = process.env.TESTTWEET || require("./twitter_stuff/tweet");
+const tweetScript = require("./twitter_stuff/tweet");
 
 fs.writeFile(file, createContent(originalTweets), err => {
   if (err) throw err;
