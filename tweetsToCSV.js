@@ -12,5 +12,3 @@ fs.writeFile(file, createContent(originalTweets), err => {
   if (err) throw err;
   console.log(`tweet text written to ${file}`);
 });
-
-module.exports.createContent = createContent;
