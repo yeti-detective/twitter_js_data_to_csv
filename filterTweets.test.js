@@ -39,3 +39,21 @@ describe("createContent", () => {
     expect(actualString).toBe(expectedString);
   });
 });
+
+describe("originalTweetsNoMentions", () => {
+  test("originalTweetsNoMentions filters retweets and mentions", () => {
+    // Arrange
+    const expectedTweets = [
+      { full_text: "RT @some_user this tweet shouldn't be in it" },
+      { full_text: "this tweet should be in it" },
+      { full_text: "@some_users this is a mention and should not be included" }
+    ];
+    const expectedTweetsArray = [{ full_text: "this tweet should be in it" }];
+
+    // Act
+    const actualTweetArray = originalTweets(expectedTweets);
+
+    // Assert
+    expect(actualTweetArray).toEqual(expectedTweetsArray);
+  });
+});
